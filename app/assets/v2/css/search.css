@@ -156,10 +156,6 @@
   font-weight: 800;
 }
 
-.search-result__description .tag {
-  display: inline-block;
-}
-
 .tag {
   background-color: #E7F0FA;
   color: #6700FF;
@@ -167,4 +163,8 @@
   width: max-content;
   font-weight: bold;
   font-size: 12px;
+}
+
+.search-result__description .tag {
+  display: inline-block;
 }

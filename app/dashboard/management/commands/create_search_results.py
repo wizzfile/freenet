@@ -45,7 +45,7 @@ class Command(BaseCommand):
             try:
                 uri = reverse(item)
                 url = f"{settings.BASE_URL}{uri}".replace(f"/{uri}", f"{uri}")
-
+                print(uri)
                 html_response = requests.get(url)
                 soup = BeautifulSoup(html_response.text, 'html.parser')
                 title = soup.findAll("title")[0].text
@@ -86,6 +86,7 @@ class Command(BaseCommand):
         # prog languages
         from retail.utils import programming_languages_full
         for pl in programming_languages_full:
+            print(pl)
             obj, created = ProgrammingLanguage.objects.update_or_create(val=pl)
             urls = [f"/explorer?q={pl}", f"/users?q={pl}"]
             for url in urls:

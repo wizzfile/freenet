@@ -1,12 +1,12 @@
-if (document.getElementById("gc-search")) {
+if (document.getElementById('gc-search')) {
   var app = new Vue({
-    delimiters: ["[[", "]]"],
-    el: "#gc-search",
+    delimiters: [ '[[', ']]' ],
+    el: '#gc-search',
     data: {
-      term: "",
+      term: '',
       results: [],
       currentTab: 0,
-      source_types: ["orgs", "profile", "bounties", "grants", "pages"]
+      source_types: [ 'orgs', 'profile', 'bounties', 'grants', 'pages' ]
     },
     mounted() {
       this.search();
@@ -16,7 +16,8 @@ if (document.getElementById("gc-search")) {
     },
     filters: {
       capitalize: function(value) {
-        if (!value) return "";
+        if (!value)
+          return '';
         value = value.toString();
         return value.charAt(0).toUpperCase() + value.slice(1);
       }
@@ -24,12 +25,14 @@ if (document.getElementById("gc-search")) {
     methods: {
       search: async function() {
         let vm = this;
+
         if (vm.term.length > 3) {
           let search = await fetchData(
             `/api/v0.1/search/?term=${vm.term}`,
-            "GET"
+            'GET'
           );
-          let results = groupBySource("source_type");
+          let results = groupBySource('source_type');
+
           vm.results = results(search);
         } else {
           vm.results = {};
@@ -42,6 +45,7 @@ if (document.getElementById("gc-search")) {
 const groupBySource = key => array =>
   array.reduce((objectsByKeyValue, obj) => {
     const value = obj[key];
+
     objectsByKeyValue[value] = (objectsByKeyValue[value] || []).concat(obj);
     return objectsByKeyValue;
   }, {});
