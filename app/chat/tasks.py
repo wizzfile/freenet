@@ -49,7 +49,7 @@ def create_channel_if_not_exists(options):
 
             return True, new_channel
         except Exception as e:
-            logger.error(str(e))
+            logger.debug(str(e))
 
 
 def update_chat_notifications(profile, notification_key, status):
@@ -95,13 +95,13 @@ def associate_chat_to_profile(profile):
                         profile_access_token = pat
                         break
             except Exception as e:
-                logger.error(str(e))
+                logger.debug(str(e))
                 try:
                     profile_access_token = chat_driver.users.create_user_access_token(user_id=profile.chat_id, options={
                         'description': "Grants Gitcoin access to modify your account"})
                 except Exception as e:
                     logger.info('Failed to create access token')
-                    logger.error(str(e))
+                    logger.debug(str(e))
 
             profile.gitcoin_chat_access_token = profile_access_token['token']
 
@@ -140,7 +140,7 @@ def associate_chat_to_profile(profile):
                         break
 
             except Exception as e:
-                logger.error(str(e))
+                logger.debug(str(e))
                 profile_access_token = chat_driver.users.create_user_access_token(user_id=profile.chat_id, options={
                     'description': "Grants Gitcoin access to modify your account"})
 
@@ -166,7 +166,10 @@ chat_driver = Driver(driver_opts)
 
 
 def get_driver():
-    chat_driver.login()
+    try:
+        chat_driver.login()
+    except Exception as e:
+        raise AttributeError("Unable to login, ensure CHAT_DRIVER_TOKEN is set in your env variables")
     return chat_driver
 
 
@@ -211,7 +214,7 @@ def create_channel(self, options, bounty_id=None, retry: bool = True) -> None:
             self.retry(30)
         except Exception as e:
             print("we got an exception when creating a channel")
-            logger.error(str(e))
+            logger.debug(str(e))
 
 
 @app.shared_task(bind=True, max_retries=3)
@@ -283,7 +286,7 @@ def hackathon_chat_sync(self, hackathon_id: str, profile_handle: str = None, ret
                 )
 
     except Exception as e:
-        logger.error(str(e))
+        logger.debug(str(e))
 
 
 @app.shared_task(bind=True, max_retries=3)
@@ -310,7 +313,7 @@ def add_to_channel(self, channel_details, chat_user_ids: list, retry: bool = Tru
         logger.info("Retrying connection")
         self.retry(30)
     except Exception as e:
-        logger.error(str(e))
+        logger.debug(str(e))
 
 
 @app.shared_task(bind=True, max_retries=1)
@@ -344,7 +347,7 @@ def create_user(self, options, params, profile_handle='', retry: bool = True):
             logger.info("Retrying connection")
             self.retry(30)
         except Exception as e:
-            logger.error(str(e))
+            logger.debug(str(e))
             return None
 
 
@@ -384,4 +387,4 @@ def patch_chat_user(self, query_opts, update_opts, retry: bool = True) -> None:
             logger.info("Retrying connection")
             self.retry(30)
         except Exception as e:
-            logger.error(str(e))
+            logger.debug(str(e))
