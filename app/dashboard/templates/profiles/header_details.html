@@ -26,7 +26,7 @@
 </p>
   {% if profile.custom_tagline %}
   <div class="profile-header__bio my-2">
-    <small class="review-comment bio" contenteditable="true">{{ profile.custom_tagline }}</small>
+    <small class="review-comment bio" {% if is_my_profile %} contenteditable="true" {% endif %}>{{ profile.custom_tagline }}</small>
   </div>
   {% endif %}
 {% if not profile.is_org %}
