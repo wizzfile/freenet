@@ -24,9 +24,9 @@
     </button>
   {% endif %}
 </p>
-  {% if profile.custom_tagline %}
+  {% if profile.custom_tagline or is_my_profile %}
   <div class="profile-header__bio my-2">
-    <small class="review-comment bio" {% if is_my_profile %} contenteditable="true" {% endif %}>{{ profile.custom_tagline }}</small>
+    <small class="review-comment bio" {% if is_my_profile %} contenteditable="true" {% endif %}>{% if profile.custom_tagline %}{{ profile.custom_tagline }}{% else %}Click to enter a custom tagline...{% endif %}</small>
   </div>
   {% endif %}
 {% if not profile.is_org %}
