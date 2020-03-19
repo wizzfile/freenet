@@ -24,14 +24,9 @@
     </button>
   {% endif %}
 </p>
-{% if profile.data.bio %}
-  <div class="profile-header__bio my-2">
-    <small class="review-comment">{{ profile.data.bio }}</small>
-  </div>
-{% endif %}
   {% if profile.custom_tagline %}
   <div class="profile-header__bio my-2">
-    <small class="review-comment">{{ profile.custom_tagline }}</small>
+    <small class="review-comment bio" contenteditable="true">{{ profile.custom_tagline }}</small>
   </div>
   {% endif %}
 {% if not profile.is_org %}

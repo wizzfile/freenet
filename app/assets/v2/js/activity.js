@@ -2,6 +2,15 @@
 
 $(document).ready(function() {
 
+  $('body').on('focusout', '.bio[contenteditable]', function() {
+      var input = $(this).html();
+      _alert('Updated', 'success', 1000);
+      console.log(input);
+  }).on('blur keyup paste input', '[contenteditable]', function() {
+      var input = $(this).html();
+      $(this).html(input.slice(0,280));
+  });
+
   var linkify = function(new_text) {
     new_text = new_text.replace(/(?:^|\s)#([a-zA-Z\d-]+)/g, ' <a href="/?tab=search-$1">#$1</a>');
     new_text = new_text.replace(/\B@([a-zA-Z0-9_-]*)/g, ' <a href="/profile/$1">@$1</a>');
@@ -17,6 +26,13 @@ $(document).ready(function() {
     });
   }
 
+
+
+  $(document).on('click', '.bio_tag', function(e) {
+    $(this).css('cursor', 'default');
+    $(this).text($(this).data('text'));
+  });
+
   $(document).on('click', '.infinite-more-link', function(e) {
     if ($(this).hasClass('hidden')) {
       e.preventDefault();
@@ -31,6 +47,7 @@ $(document).ready(function() {
       $('.infinite-container').find('.loading').remove();
       $('.infinite-container').append($(response).find('.infinite-container').html());
       $('.infinite-container').find('.loading').addClass('hidden');
+      document.new_activity_callback();
     });
     e.preventDefault();
   });
@@ -735,11 +752,22 @@ $(document).ready(function() {
 
 
   // auto open new comment threads
-  setInterval(function() {
+  document.new_activity_callback = function() {
 
     $('[data-toggle="popover"]').popover();
     $('[data-toggle="tooltip"]').bootstrapTooltip();
     openChat();
+
+    $('.bio_tag').each(function(){
+      if(!$(this).hasClass('clean')){
+        $(this).addClass('clean');
+        $(this).data('text', $(this).text());
+        max = 15;
+        if(($(this).text()).length>max){
+          $(this).text($(this).text().trim().slice(0,max) + '...');
+        }
+      }
+    });
 
     $('.comment_activity').each(function() {
       var open = $(this).data('open');
@@ -767,7 +795,7 @@ $(document).ready(function() {
         $(this).addClass('clean');
       }
     });
-  }, 1000);
+  };
 
 
 }(jQuery));

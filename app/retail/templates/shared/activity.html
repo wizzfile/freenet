@@ -16,7 +16,7 @@
 
 {% endcomment %}
 {% load humanize i18n static %}
-<div class="box bg-white d-block m-0 mb-3 activity {{ row.activity_type }} infinite-item px-sm-3 py-4" data-pk="{{row.pk}}">
+<div class="box bg-white d-block m-0 mb-2 activity {{ row.activity_type }} infinite-item px-sm-3 pt-4 pr-4 pl-4 pb-2" data-pk="{{row.pk}}">
   {% if row.activity_type == 'new_bounty' %}
     <div class="align-items-baseline d-flex font-weight-bold justify-content-between mb-2 mt-n3">
       <b>New Bounty</b>
@@ -44,8 +44,13 @@
             </span>
             <BR>
          {% endif %}
+         {% if row.profile.custom_tagline %}
+            <span class="bio_tag">
+              {{row.profile.custom_tagline}}
+            </span>
+         {% endif %}
 
-        {% if row.profile.organizations|length %}
+        {% if row.profile.organizations|length and 0 %}
           <div>
             {% for org in row.profile.organizations %}
                 <img data-toggle="tooltip" title="Member of @{{org}}" src="/dynamic/avatar/{{ org }}" style="border-radius: 15px; width: 15px; height: 15px;" />

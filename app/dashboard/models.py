@@ -4116,6 +4116,9 @@ def psave_profile(sender, instance, **kwargs):
     instance.handle = instance.handle.replace('@', '')
     instance.handle = instance.handle.lower()
 
+    if not instance.custom_tagline and instance.data.get('bio'):
+        instance.custom_tagline = instance.data.get('bio')
+
     # sync organizations_fk and organizations
     if hasattr(instance, 'pk') and instance.pk:
         for handle in instance.organizations:

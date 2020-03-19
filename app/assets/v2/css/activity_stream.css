@@ -243,6 +243,21 @@ a .sup {
   list-style: none;
   padding: 5px;
 }
+
+.bio_tag{
+  background-color: #E4E6E7;
+  border-radius: 5px;
+  color: #666666;
+  font-size: 10px;
+  list-style: none;
+  padding: 2px 5px;
+  cursor: pointer;
+  --max-lines: 1;
+  max-height: calc(var(--lh) * var(--max-lines));
+  overflow: hidden;
+  display: block;
+  margin: 3px 2px 0px;
+}
 .staff_tag
 {
   background-color: #eEbAEE;
