@@ -21,13 +21,13 @@ valued.
   * [Step 6: PRs](#step-6-prs)
 * [Python](#python)
   * [Docstrings](#docstrings)
-    * [Classes](#classes)
-    * [Methods](#methods)
-    * [Example](#example)
+    * [#classes]
+    * [#methods]
+    * [#example]
   * [VSCode Remote Debugger](#vscode-remote-debugger)
-    * [VSCode Prerequisites](#vscode-prerequisites)
-    * [Add Launch Configuration](#add-launch-configuration)
-    * [VSCode Additional Resources](#additional-vscode-resources)
+    * (#vscode-prerequisitesites")
+    * (#add-launch-configuration)
+    * (#additional-vscode-resources)
   * [Additional Resources](#additional-resources)
 * [FAQ](#faq)
   * [Contributing Static Assets](#contributing-static-assets)
